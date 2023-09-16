@@ -1,0 +1,37 @@
+numRuns = 5; % セッションの試行回数
+numTrials = 30; % タイピングテストの問題数
+max_characters = 10; % 被験者が２秒で入力できる最大文字数
+% https://typing-speed-test.aoeu.eu/
+
+trials_data = cell(numTrials,4,numRuns);
+counter1 = 0;
+counter2 = 0;
+counter3 = 0;
+
+correct1 = 0;
+correct2 = 0;
+correct3 = 0;
+
+accuracy1 = 0;
+accuracy2 = 0;
+accuracy3 = 0;
+
+codeFilePath1 = 'typingtest_wordlist_2_50terms.m';
+run(codeFilePath1);
+
+for runs = 1:numRuns
+    codeFilePath2 = 'test.m';
+    run(codeFilePath2); %% runし終わったら次に行くのかどうかが分からない
+    trials_data(:, :, runs)= trial_data;
+end
+
+accuracy1 = correct1/counter1;
+accuracy2 = correct2/counter2;
+accuracy3 = correct3/counter3;
+accuracy = [accuracy1, accuracy2, accuracy3];
+%%
+fitObj = fit(limit_times', accuracy', 'poly1');
+figure;
+plot(fitObj, limit_times', accuracy');
+ylim([0.6 1.2]);
+xlim([1 7]);
